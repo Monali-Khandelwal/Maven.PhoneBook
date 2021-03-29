@@ -1,11 +1,8 @@
 package com.zipcodewilmington.phonebook;
 
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 //import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+
 
 /**
  * Created by leon on 1/23/18.
@@ -13,42 +10,61 @@ import java.util.Map;
  */
 public class PhoneBook {
 
-    private final Map<String, List<String>> phonebook;
+    private final Map<String, List<String>> phoneBook;
 
     public PhoneBook(Map<String, List<String>> map) {
-        this.phonebook = null;
+        this.phoneBook = map;
     }
 
     public PhoneBook() {
-        this(null);
+        this.phoneBook = new LinkedHashMap<>();
     }
 
     public void add(String name, String phoneNumber) {
+        ArrayList<String> phonesN = new ArrayList<>();
+        phonesN.add(phoneNumber);
+        phoneBook.put(name, phonesN);
     }
 
     public void addAll(String name, String... phoneNumbers) {
+        List<String> toAdd;
+        toAdd = Arrays.asList(phoneNumbers);
+        phoneBook.put(name, toAdd);
+
     }
 
     public void remove(String name) {
+        phoneBook.remove(name);
     }
 
     public Boolean hasEntry(String name) {
-        return null;
+        return phoneBook.containsKey(name);
     }
 
     public List<String> lookup(String name) {
-        return null;
+        return phoneBook.get(name);
+    }
+
+    public Boolean hasEntry(String name, String phoneNumber) {
+        return phoneBook.containsKey(name);
     }
 
     public String reverseLookup(String phoneNumber)  {
+        List<String> names = getAllContactNames();
+        for ( String name : names){
+            if (lookup(name).contains(phoneNumber)){
+                return name;
+            }
+        }
         return null;
     }
 
     public List<String> getAllContactNames() {
-        return null;
+        List<String> toAdd = new ArrayList<>(phoneBook.keySet());
+        return toAdd;
     }
 
     public Map<String, List<String>> getMap() {
-        return null;
+        return this.phoneBook;
     }
 }
